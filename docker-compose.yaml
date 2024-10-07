@@ -1,0 +1,50 @@
+# services:
+#   grafana:
+#     user: root
+#     container_name: 'fountlab-textwithimage-panel'
+
+#     build:
+#       context: ./.config
+#       args:
+#         grafana_image: ${GRAFANA_IMAGE:-grafana-enterprise}
+#         grafana_version: ${GRAFANA_VERSION:-11.2.0}
+#         development: ${DEVELOPMENT:-false}
+#     ports:
+#       - 3000:3000/tcp
+#     volumes:
+#       - ./dist:/var/lib/grafana/plugins/fountlab-textwithimage-panel
+#       - ./provisioning:/etc/grafana/provisioning
+#       - .:/root/fountlab-textwithimage-panel
+
+#     environment:
+#       NODE_ENV: development
+#       GF_LOG_FILTERS: plugin.fountlab-textwithimage-panel:debug
+#       GF_LOG_LEVEL: debug
+#       GF_DATAPROXY_LOGGING: 1
+#       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: fountlab-textwithimage-panel
+
+services:
+  grafana:
+    user: root
+    container_name: 'fountlab-textwithimage-panel'
+
+    build:
+      context: ./.config
+      args:
+        grafana_image: ${GRAFANA_IMAGE:-grafana-enterprise}
+        grafana_version: ${GRAFANA_VERSION:-11.2.0} # Ensure version compatibility
+        development: ${DEVELOPMENT:-false}
+    ports:
+      - 3000:3000/tcp
+    volumes:
+      - ./dist:/var/lib/grafana/plugins/fountlab-textwithimage-panel
+      - ./provisioning:/etc/grafana/provisioning
+      - .:/root/fountlab-textwithimage-panel
+    
+    environment:
+      NODE_ENV: development
+      GF_LOG_FILTERS: plugin.fountlab-textwithimage-panel:debug
+      GF_LOG_LEVEL: debug
+      GF_DATAPROXY_LOGGING: 1
+      GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: fountlab-textwithimage-panel
+      GF_USERS_DEFAULT_THEME: light
